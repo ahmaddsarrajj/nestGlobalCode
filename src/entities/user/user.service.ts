@@ -21,7 +21,6 @@ export class UserService {
             email: createUserDto.email,
             hpassword: hash,
             locale_code: "en",
-            department_id: createUserDto.department_id
         }
         const user = this.prisma.users.create({
             data: data
@@ -85,18 +84,7 @@ export class UserService {
         return user;
     }
 
-    changePassword = (id: number, updateUserDto: UpdateUserDto) => {
-        const user = this.prisma.users.update({
-            where: {
-                id: id
-            },
-            data: {
-                hpassword: updateUserDto.hpassword,
-            }
-        })
-        console.log(updateUserDto.hpassword)
-        return user;
-    }
+    
 
     //Get user details
     findOne(id: number) {
