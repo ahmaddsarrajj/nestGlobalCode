@@ -1,0 +1,88 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id    Int    @id @default(autoincrement())
+  firstname String
+  lastname String
+  email String @unique
+	hpassword String
+  locale_code String
+  
+
+  role RoleUser[]
+
+  permission PermissionUser[]
+
+}
+model Role {
+  id Int @id @default(autoincrement())
+  role String
+
+  permission RolePermission[]
+
+  user RoleUser[]
+}
+
+model Subject {
+  id Int @id @default(autoincrement())
+  sub String
+
+  permission Permission[]
+}
+
+model Permission {
+  id Int @id @default(autoincrement())
+  action String
+  
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  subjectId Int 
+
+  condition Json
+
+  role RolePermission[]
+
+  user PermissionUser[]
+}
+
+model RolePermission {
+  id Int  @default(autoincrement())
+
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId Int
+
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  permissionId Int
+
+  @@id([roleId, permissionId])
+}
+
+model RoleUser {
+  id Int  @default(autoincrement())
+
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  roleId Int
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId Int
+
+  @@id([roleId, userId]) 
+}
+
+model PermissionUser {
+  id Int  @default(autoincrement())
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int 
+
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  permissionId Int
+  @@id([userId, permissionId])
+}

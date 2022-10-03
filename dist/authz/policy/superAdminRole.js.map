@@ -1,0 +1,1 @@
+{"version":3,"file":"superAdminRole.js","sourceRoot":"","sources":["../../../src/authz/policy/superAdminRole.ts"],"names":[],"mappings":";;;AACA,sCAAmC;AAGnC,MAAa,uBAAuB;IAChC,MAAM,CAAC,OAAmB;QACxB,OAAO,OAAO,CAAC,GAAG,CAAC,eAAM,CAAC,MAAM,EAAE,KAAK,CAAC,CAAC;IAC3C,CAAC;CACF;AAJH,0DAIG"}
