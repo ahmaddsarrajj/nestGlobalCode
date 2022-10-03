@@ -61,10 +61,7 @@ export class UserController {
     return this.userService.updateUser(+id, updateUserDto);
   }
 
-  @Patch(':id/password')
-  async changePassword(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.changePassword(+id, updateUserDto);
-  }
+ 
 
   @Delete(':id')
   deleteUser(@Param('id') id: string) {
